@@ -65,10 +65,6 @@ int main(int argc, char const *argv[]) {
     int client = 0;
     socklen_t sf = sizeof(s_client);
 
-    //  buildHTML("/", root);
-
-
-
     while ((client = accept(skt, (struct sockaddr *) &s_client, &sf))) {
 
         ssize_t rd = read(client, buf, 20000);
@@ -131,15 +127,6 @@ int main(int argc, char const *argv[]) {
             char* rrpath = malloc(256);
             strcpy(rrpath, root);
             strcat(rrpath, path);
-            
-            /* for (int i = 0; i < 256; i++) {
-                if (rrpath[i] == '%' && rrpath[i + 1] == '2' && rrpath[i + 2] == '0') {
-                    rrpath[i] = ' ';
-                    for (int j = i + 1; j < 256; j++) {
-                        rrpath[j] = rrpath[j + 2];
-                    }
-                }
-            } */
             
             DIR *dir_handler = opendir(rrpath);
             if (dir_handler != NULL)
