@@ -118,10 +118,29 @@ int main(int argc, char const *argv[]) {
             continue;
         }
 
+        for (int i = 0; i < 256; i++) {
+            if (path[i] == '%' && path[i + 1] == '2' && path[i + 2] == '0') {
+                path[i] = ' ';
+                for (int j = i + 1; j < 256; j++) {
+                    path[j] = path[j + 2];
+                }
+            }
+        }
+
         if (strrchr(path, '/') == path + strlen(path) - 1) {
             char* rrpath = malloc(256);
             strcpy(rrpath, root);
             strcat(rrpath, path);
+            
+            /* for (int i = 0; i < 256; i++) {
+                if (rrpath[i] == '%' && rrpath[i + 1] == '2' && rrpath[i + 2] == '0') {
+                    rrpath[i] = ' ';
+                    for (int j = i + 1; j < 256; j++) {
+                        rrpath[j] = rrpath[j + 2];
+                    }
+                }
+            } */
+            
             DIR *dir_handler = opendir(rrpath);
             if (dir_handler != NULL)
             {
